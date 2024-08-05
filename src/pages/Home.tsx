@@ -20,9 +20,12 @@ const Home = () => {
 
   const ogImageRef = useRef<HTMLDivElement>(null);
 
+  const [loading, setLoading] = useState(false);
+
   const [publicUrl, setPublicUrl] = useState<string | null>(null);
 
   const handleFormData = (data: OGData) => {
+    setLoading(true);
     setOGData(data);
     scrollToBottom();
   };
@@ -49,9 +52,9 @@ const Home = () => {
           }
         );
         const response = await result.json();
-        console.log(response);
 
         if (response.status === "success") {
+          setLoading(false);
           setPublicUrl(response.url);
         } else {
           throw new Error("Error saving image");
@@ -71,6 +74,7 @@ const Home = () => {
   return (
     <div className="w-screen min-h-screen bg-primary flex flex-col justify-center items-center">
       <OGForm handleFormData={handleFormData} />
+      {loading && <p className="text-white">Loading...</p>}
       {publicUrl && (
         <div className="flex gap-4">
           <button className="bg-secondary text-primary px-4 py-2 rounded-lg cursor-pointer text-center transition-all hover:bg-secondary/90 hover:text-primary">
