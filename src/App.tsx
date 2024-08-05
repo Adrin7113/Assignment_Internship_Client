@@ -1,7 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 
-function App(): React.ReactElement {
+function App() {
   const router = createBrowserRouter([
     {
       path: "/",
@@ -9,7 +10,7 @@ function App(): React.ReactElement {
     },
     {
       path: "*",
-      element: <div className="underline">Not Found</div>,
+      element: <NotFound />,
     },
   ]);
 
